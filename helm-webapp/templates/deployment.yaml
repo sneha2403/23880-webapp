@@ -22,10 +22,13 @@ spec:
         image: arokiyasneka/reactapp:v1.0
         ports:
         - containerPort: 8080
-        volumeMounts:
-            - mountPath: /usr/share/nginx/html
-              name: webapp-storage
-        volumes:
-        - name: webapp-storage
-          persistentVolumeClaim:
-            claimName: webapp-pvc
+        envFrom:
+        - configMapRef:
+            name: webapp-config
+        resources:
+          requests:
+            memory: "16Mi" 
+            cpu: "50m"    # 500milliCPUs (1/2 CPU)
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
