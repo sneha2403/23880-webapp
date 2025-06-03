@@ -1,11 +1,14 @@
+# Use lightweight Nginx base image
+FROM nginx:alpine
 
-FROM centos
-RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
-RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
-RUN yum -y install epel-release
-RUN yum -y install nginx
+# Remove default HTML files
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy your custom HTML file
 COPY index.html /usr/share/nginx/html/index.html
-COPY nginx.conf /etc/nginx/nginx.conf
-RUN cat /usr/share/nginx/html/index.html
-EXPOSE 8080:8080
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]

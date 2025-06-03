@@ -19,7 +19,7 @@ spec:
       serviceAccountName: webapp-sa
       containers:
       - name: webapp
-        image: arokiyasneka/reactapp:v1.0
+        image: arokiyasneka/webapp
         ports:
         - containerPort: 8080
         volumeMounts:
