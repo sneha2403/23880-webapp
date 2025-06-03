@@ -1,0 +1,10 @@
+appName: webapp-deployment
+
+configmap:
+  name: myhelmapp-configmap-v1
+  data:
+    CUSTOM_HEADER: 'This app was deployed with helm!'
+
+image:
+  name: arokiyasneka/reactapp:v1.0
+  tag: 47

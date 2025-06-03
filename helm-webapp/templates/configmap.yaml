@@ -1,0 +1,6 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: webapp-config
+data:
+  WELCOME_MSG: "Welcome to My Web Application on ROSA!"
