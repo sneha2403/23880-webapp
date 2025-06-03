@@ -1,14 +1,10 @@
-# Use Nginx as a base image
-FROM nginx:alpine
-
-# Remove default content
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy custom HTML into Nginx document root
+FROM centos
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
+RUN yum -y install epel-release
+RUN yum -y install nginx
 COPY index.html /usr/share/nginx/html/index.html
-
-# Expose HTTP port
-EXPOSE 80
-
-# Start Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+RUN cat /usr/share/nginx/html/index.html
+EXPOSE 8080:8080
 CMD ["nginx", "-g", "daemon off;"]
